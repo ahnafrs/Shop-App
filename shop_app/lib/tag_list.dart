@@ -26,12 +26,12 @@ class _TagListState extends State<TagList> {
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 decoration: BoxDecoration(
                   color: selected == index
-                      ? Color.fromARGB(255, 255, 230, 0)
-                      : Colors.white,
+                      ? Color.fromARGB(255, 250, 202, 29)
+                      : Color.fromARGB(255, 245, 245, 245),
                   border: Border.all(
                     color: selected == index
                         ? Color.fromARGB(255, 255, 230, 0).withOpacity(0.2)
-                        : Color.fromARGB(255, 255, 230, 0),
+                        : Color.fromARGB(255, 245, 245, 245),
                   ),
                   borderRadius: BorderRadius.circular(20),
                 ),

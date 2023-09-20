@@ -10,6 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<String> tagList = ["All", "Adidas", "Nike", "Puma", "Bata"];
+
+  var selected = 0;
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -53,10 +56,40 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            TagList(),
-            Container(
-              color: Colors.red,
-              child: Text("Main"),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(height: 40, child: TagList()),
+            // ),
+            SizedBox(
+              height: 120,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selected = index;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Chip(
+                        label: Text(tagList[index]),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: selected == index
+                            ? Color.fromARGB(255, 250, 202, 29)
+                            : Color.fromARGB(255, 245, 245, 245),
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (_, index) => SizedBox(
+                  width: 10,
+                ),
+                itemCount: tagList.length,
+              ),
             ),
           ],
         ),
