@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/cart_provider.dart';
 import 'package:shop_app/global_variables.dart';
 
 class CartPage extends StatelessWidget {
@@ -6,6 +8,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context).cart;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -23,7 +26,42 @@ class CartPage extends StatelessWidget {
                 title: Text(cartItem['title'] as String),
                 subtitle: Text('Size: ${cartItem['sizes']}'),
                 trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              backgroundColor:
+                                  Color.fromARGB(255, 216, 209, 184),
+                              title: Text("Delete Product"),
+                              content:
+                                  Text('Are you sure to Delete this product'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .removeProduct(cartItem);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                              ],
+                            );
+                          });
+                    },
                     icon: Icon(
                       Icons.delete,
                       color: Colors.red,
