@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/global_variables.dart';
 import 'package:shop_app/home_page.dart';
+import 'package:shop_app/products_details_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,8 +9,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

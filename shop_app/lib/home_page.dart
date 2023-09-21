@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/global_variables.dart';
 import 'package:shop_app/products_card.dart';
+import 'package:shop_app/products_details_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -103,13 +104,23 @@ class _HomePageState extends State<HomePage> {
               child: ListView.separated(
                   itemBuilder: (context, index) {
                     final product = products[index];
-                    return ProductsCard(
-                      title: product['title'] as String,
-                      price: product['price'] as double,
-                      image: product['imageUrl'] as String,
-                      backgroundColor: index.isEven
-                          ? Color.fromARGB(255, 165, 208, 228)
-                          : Color.fromARGB(255, 233, 243, 248),
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return ProductsDetailsPage(product: product);
+                          }));
+                        });
+                      },
+                      child: ProductsCard(
+                        title: product['title'] as String,
+                        price: product['price'] as double,
+                        image: product['imageUrl'] as String,
+                        backgroundColor: index.isEven
+                            ? Color.fromARGB(255, 165, 208, 228)
+                            : Color.fromARGB(255, 233, 243, 248),
+                      ),
                     );
                   },
                   separatorBuilder: (_, index) => SizedBox(
