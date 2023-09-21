@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shop_app/tag_list.dart';
+import 'package:shop_app/global_variables.dart';
+import 'package:shop_app/products_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -46,6 +47,8 @@ class _HomePageState extends State<HomePage> {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search',
+                      hintStyle: TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 15),
                       prefixIcon: Icon(Icons.search),
                       border: border,
                       enabledBorder: border,
@@ -78,9 +81,14 @@ class _HomePageState extends State<HomePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
+                        side: BorderSide(
+                          color: selected == index
+                              ? Color.fromARGB(255, 250, 202, 29)
+                              : Color.fromARGB(255, 233, 243, 248),
+                        ),
                         backgroundColor: selected == index
                             ? Color.fromARGB(255, 250, 202, 29)
-                            : Color.fromARGB(255, 245, 245, 245),
+                            : Color.fromARGB(255, 233, 243, 248),
                       ),
                     ),
                   );
@@ -91,6 +99,24 @@ class _HomePageState extends State<HomePage> {
                 itemCount: tagList.length,
               ),
             ),
+            Expanded(
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return ProductsCard(
+                      title: product['title'] as String,
+                      price: product['price'] as double,
+                      image: product['imageUrl'] as String,
+                      backgroundColor: index.isEven
+                          ? Color.fromARGB(255, 165, 208, 228)
+                          : Color.fromARGB(255, 233, 243, 248),
+                    );
+                  },
+                  separatorBuilder: (_, index) => SizedBox(
+                        height: 10,
+                      ),
+                  itemCount: products.length),
+            )
           ],
         ),
       ),
